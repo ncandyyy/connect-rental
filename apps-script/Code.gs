@@ -17,15 +17,35 @@
  */
 
 /**
- * 상세페이지 목록 — 페이지를 더 만들면 여기에 한 줄 추가하고, 그 페이지 config.js 의 PAGE_ID 를 맞춰주세요.
- *  name    : 슬랙 알림 등에 보이는 이름
- *  sheet   : 신청이 쌓이는 탭 이름
- *  viewKey : 누적 조회수를 저장하는 스크립트 속성 이름
- *  color   : 탭 머리글 배경색
+ * 상세페이지 목록 — 페이지를 더 만들면 여기에 한 묶음 추가하고, 그 페이지 config.js 의 PAGE_ID 를 맞춰주세요.
+ *  name     : 페이지 이름 (슬랙 변수 page)
+ *  product  : 상품 구성 문구 (슬랙 변수 product)
+ *  siteUrl  : 상세페이지 주소 (슬랙 변수 siteUrl)
+ *  sheet    : 신청이 쌓이는 탭 이름
+ *  viewKey  : 누적 조회수를 저장하는 스크립트 속성 이름
+ *  slackKey : 이 페이지 알림을 보낼 슬랙 워크플로 웹훅 주소를 넣어둔 스크립트 속성 이름
+ *             (비어 있으면 기본 SLACK_WEBHOOK_URL 로 보냅니다 → 알림이 빠지지 않게)
+ *  color    : 탭 머리글 배경색
  */
 const PAGES = {
-  toss: { name: '토스 렌탈', sheet: '신청목록', viewKey: 'VIEW_COUNT', color: '#e8f3ff' },
-  connect: { name: '네이버 커넥트', sheet: '커넥트 신청목록', viewKey: 'VIEW_COUNT_CONNECT', color: '#ebfef2' },
+  toss: {
+    name: '토스 렌탈',
+    product: '토스 프론트+토스 터미널+토스 포스',
+    siteUrl: 'https://toss-rental.netlify.app/',
+    sheet: '신청목록',
+    viewKey: 'VIEW_COUNT',
+    slackKey: 'SLACK_WEBHOOK_URL',
+    color: '#e8f3ff',
+  },
+  connect: {
+    name: '네이버 커넥트',
+    product: '네이버 커넥트 + 카드 단말기 + N포스',
+    siteUrl: 'https://connect-rental.netlify.app/',
+    sheet: '커넥트 신청목록',
+    viewKey: 'VIEW_COUNT_CONNECT',
+    slackKey: 'SLACK_WEBHOOK_URL_CONNECT',
+    color: '#ebfef2',
+  },
 };
 const DEFAULT_PAGE = 'toss'; // page 값이 없거나 모르는 값이면 이 페이지로
 
@@ -184,20 +204,28 @@ function formatPhone_(v) {
 /**
  * 슬랙 워크플로 웹훅으로 보낼 변수 이름 (워크플로 빌더에서 만든 변수 이름과 똑같아야 합니다)
  * 메시지 모양은 슬랙 워크플로에서 정하고, 여기서는 값만 보냅니다.
- * 쓸 수 있는 값: page(페이지 이름, 예: "네이버 커넥트"), receivedAt, storeStatus, industry, phone,
- *               contactDay, contactDate, contactTime, sheetUrl
- * ※ 어느 페이지 신청인지 슬랙에 보이게 하려면: 워크플로에 page 변수를 먼저 추가한 뒤 아래 목록에 'page' 를 넣으세요.
- *   (워크플로에 없는 변수를 보내면 알림이 실패할 수 있어서, 기본값에는 넣지 않았습니다)
+ * 쓸 수 있는 값: receivedAt, storeStatus, industry, phone, contactDay, contactDate, contactTime, sheetUrl,
+ *               page(페이지 이름), product(상품 구성 문구), siteUrl(상세페이지 주소)
+ *
+ * 페이지별 알림 문구를 다르게 하는 방법 (docs/form-setup.md 2번)
+ *  ① 추천: 페이지마다 워크플로를 따로 두기 — 커넥트용 워크플로 웹훅 주소를 스크립트 속성 SLACK_WEBHOOK_URL_CONNECT 에 넣기
+ *          (아래 목록은 그대로. 문구·링크는 각 워크플로 메시지에 직접 적습니다)
+ *  ② 워크플로 하나로: 워크플로에 product, siteUrl 변수를 먼저 추가한 뒤 아래 목록에 'product', 'siteUrl' 을 넣기
+ *     (워크플로에 없는 변수를 보내면 알림이 실패할 수 있어서, 기본값에는 넣지 않았습니다)
  */
 const SLACK_FIELDS = ['receivedAt', 'storeStatus', 'industry', 'phone', 'contactDay', 'contactDate', 'contactTime'];
 
 // 슬랙에는 상담에 필요한 정보만 보냅니다. (처리상태·유입 경로·랜딩 URL·기기 정보는 시트에만 저장)
 function notifySlack_(d, page, sheet, rowNumber, receivedAt) {
-  const url = PropertiesService.getScriptProperties().getProperty('SLACK_WEBHOOK_URL');
+  // 페이지 전용 워크플로가 있으면 그쪽으로, 없으면 기본 워크플로로 보냅니다 (알림이 빠지지 않게)
+  const props = PropertiesService.getScriptProperties();
+  const url = props.getProperty(page.slackKey) || props.getProperty('SLACK_WEBHOOK_URL');
   if (!url) return;
 
   const values = {
     page: page.name,
+    product: page.product,
+    siteUrl: page.siteUrl,
     receivedAt: receivedAt,
     storeStatus: d.storeStatus,
     industry: d.industry,
