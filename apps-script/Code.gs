@@ -21,7 +21,8 @@
  *  name     : 페이지 이름 (슬랙 변수 page)
  *  product  : 상품 구성 문구 (슬랙 변수 product)
  *  siteUrl  : 상세페이지 주소 (슬랙 변수 siteUrl)
- *  sheet    : 신청이 쌓이는 탭 이름
+ *  sheet    : 신청이 쌓이는 탭 이름 (시트에서 탭 이름을 바꾸면 여기도 똑같이 바꿔야 합니다.
+ *             다르면 그 이름으로 빈 탭을 새로 만들어 거기에 쌓습니다)
  *  viewKey  : 누적 조회수를 저장하는 스크립트 속성 이름
  *  slackKey : 이 페이지 알림을 보낼 슬랙 워크플로 웹훅 주소를 넣어둔 스크립트 속성 이름
  *             (비어 있으면 기본 SLACK_WEBHOOK_URL 로 보냅니다 → 알림이 빠지지 않게)
@@ -32,7 +33,7 @@ const PAGES = {
     name: '토스 렌탈',
     product: '토스 프론트+토스 터미널+토스 포스',
     siteUrl: 'https://toss-rental.netlify.app/',
-    sheet: '신청목록',
+    sheet: '토스 신청목록', // 탭 이름을 바꾸면 여기도 똑같이 바꾸고 새 버전으로 배포
     viewKey: 'VIEW_COUNT',
     slackKey: 'SLACK_WEBHOOK_URL',
     color: '#e8f3ff',
@@ -274,7 +275,7 @@ function testSubmitConnect() {
   testSubmit_('connect');
 }
 
-/** 테스트: 토스 렌탈 페이지로 가짜 신청 한 건 → '신청목록' 탭 + 슬랙 알림 */
+/** 테스트: 토스 렌탈 페이지로 가짜 신청 한 건 → '토스 신청목록' 탭 + 슬랙 알림 */
 function testSubmitToss() {
   testSubmit_('toss');
 }
