@@ -35,6 +35,16 @@
 
 .reviews__rows .marquee {
   --gap: calc(8 * var(--uc));
+  /* 좌우만 잘라서, 마우스를 올렸을 때 떠오른 카드와 그림자가 위아래로 잘리지 않게 합니다.
+     (clip 을 모르는 오래된 브라우저는 overflow: hidden 그대로) */
+  overflow-x: clip;
+  overflow-y: visible;
+}
+
+/* 마우스를 올린 줄을 위로 올려서, 그림자가 다른 줄 카드 밑에 깔리지 않게 */
+.reviews__rows .marquee:hover {
+  position: relative;
+  z-index: 1;
 }
 
 .review-card {
@@ -55,7 +65,15 @@
 
 .review-card:hover {
   translate: 0 -4px;
-  box-shadow: 0 12px 28px rgb(3 112 70 / 0.18);
+  box-shadow: 0 12px 24px rgb(3 112 70 / 0.18);
+}
+
+/* 터치 기기는 탭한 뒤 hover 가 남아 카드가 떠 있는 채로 흐르지 않게 */
+@media (hover: none) {
+  .review-card:hover {
+    translate: none;
+    box-shadow: none;
+  }
 }
 
 .review-card__rating {

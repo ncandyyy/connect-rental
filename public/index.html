@@ -290,9 +290,10 @@
           <p class="footnote reviews__note" data-reveal style="--delay: 0.1s">※25.10월 ~26.10월 월평균 상담 건수 기준</p>
         </div>
 
-        <!-- 자동 캐러셀 2줄 (윗줄 ←, 아랫줄 →): 아이템은 JS가 자동으로 복제합니다. 후기 추가/삭제는 li 만 고치면 됩니다 -->
-        <div class="reviews__rows" data-reveal="fade" style="--delay: 0.2s">
-          <div class="marquee" data-marquee data-direction="left" data-speed="34" data-start="0.12" data-hover-pause>
+        <!-- 후기 자동 캐러셀: 데스크톱은 한 줄, 휴대폰은 두 줄(윗줄 ←, 아랫줄 →)로 흐릅니다. (js/modules/review-rows.js)
+             후기 추가/삭제는 아래 li 만 고치면 됩니다. 휴대폰에서는 앞쪽 절반이 윗줄, 나머지가 아랫줄로 갑니다. -->
+        <div class="reviews__rows" data-review-rows data-reveal="fade" style="--delay: 0.2s">
+          <div class="marquee">
             <ul class="marquee__track">
               <li class="review-card">
                 <p class="review-card__rating"><span class="review-card__stars" aria-label="별점 5점">★★★★★</span>5.0</p>
@@ -309,15 +310,6 @@
                 <p class="review-card__meta">스마트 스토어 주문 | 3amc****</p>
                 <p class="review-card__body">주변에 지인들에게 소개해줘도 좋을 만큼<br />믿고 진행하셔도 될 것 같습니다 ~잘 사용하겠습니다 ~</p>
               </li>
-            </ul>
-          </div>
-          <div class="marquee" data-marquee data-direction="right" data-speed="30" data-start="0.4" data-hover-pause>
-            <ul class="marquee__track">
-              <li class="review-card">
-                <p class="review-card__rating"><span class="review-card__stars" aria-label="별점 5점">★★★★★</span>5.0</p>
-                <p class="review-card__meta">스마트 스토어 주문 | deal****</p>
-                <p class="review-card__body">주변에 지인들에게 소개해줘도 좋을 만큼<br />믿고 진행하셔도 될 것 같습니다 ~ 잘 사용하겠습니다 ~</p>
-              </li>
               <li class="review-card">
                 <p class="review-card__rating"><span class="review-card__stars" aria-label="별점 5점">★★★★★</span>5.0</p>
                 <p class="review-card__meta">스마트 스토어 주문 | deal****</p>
@@ -327,6 +319,11 @@
                 <p class="review-card__rating"><span class="review-card__stars" aria-label="별점 5점">★★★★★</span>5.0</p>
                 <p class="review-card__meta">스마트 스토어 주문 | theb******</p>
                 <p class="review-card__body">여러군데서 비교해보고 페이앤밴으로 결정했는데<br />친절하게 안내전화도 여러번 실수 안하도록 주셨어요</p>
+              </li>
+              <li class="review-card">
+                <p class="review-card__rating"><span class="review-card__stars" aria-label="별점 5점">★★★★★</span>5.0</p>
+                <p class="review-card__meta">스마트 스토어 주문 | deal****</p>
+                <p class="review-card__body">주변에 지인들에게 소개해줘도 좋을 만큼<br />믿고 진행하셔도 될 것 같습니다 ~ 잘 사용하겠습니다 ~</p>
               </li>
             </ul>
           </div>

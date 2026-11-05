@@ -4,6 +4,7 @@
  */
 import { initReveal } from "./modules/reveal.js";
 import { initMarquees } from "./modules/marquee.js";
+import { initReviewRows } from "./modules/review-rows.js";
 import { initMotionMedia } from "./modules/motion-media.js";
 import { initCountUp } from "./modules/count-up.js";
 import { initStackCards } from "./modules/stack-cards.js";
@@ -17,6 +18,7 @@ function start() {
   captureAttribution();
   initViewCounter();
   initMarquees();
+  initReviewRows();
   initMotionMedia();
   initStackCards();
   initCountUp();

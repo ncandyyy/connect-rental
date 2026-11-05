@@ -8,14 +8,16 @@
  * - 원래 아이템을 화면 폭보다 길어질 때까지 복제해 "한 세트"를 만들고, 세트를 한 번 더 붙입니다.
  * - CSS 애니메이션이 정확히 한 세트만큼 움직여서 이음매 없이 반복됩니다.
  * - data-speed: 1초에 움직이는 px (데스크톱 기준), data-start: 시작 위치(0~1)
+ * - 반환값의 destroy() 로 정리할 수 있습니다 (줄 수를 바꿔 다시 만들 때 등)
  */
 export function initMarquees(root = document) {
-  root.querySelectorAll("[data-marquee]").forEach(setupMarquee);
+  return [...root.querySelectorAll("[data-marquee]")].map(setupMarquee).filter(Boolean);
 }
 
 function setupMarquee(el) {
   const track = el.querySelector(".marquee__track");
-  if (!track) return;
+  if (!track || el.dataset.marqueeReady) return null;
+  el.dataset.marqueeReady = "1";
 
   const originals = [...track.children];
   let lastWidth = 0;
@@ -66,15 +68,29 @@ function setupMarquee(el) {
   }
 
   let resizeTimer;
-  window.addEventListener("resize", () => {
+  const onResize = () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(build, 200);
-  });
+  };
+  window.addEventListener("resize", onResize);
 
   // 화면 밖에서는 멈춰서 배터리/CPU 절약
+  let io = null;
   if ("IntersectionObserver" in window) {
-    new IntersectionObserver(([entry]) => {
+    io = new IntersectionObserver(([entry]) => {
       el.classList.toggle("is-paused", !entry.isIntersecting);
-    }).observe(el);
+    });
+    io.observe(el);
   }
+
+  return {
+    el,
+    destroy() {
+      window.removeEventListener("resize", onResize);
+      clearTimeout(resizeTimer);
+      if (io) io.disconnect();
+      track.querySelectorAll("[data-clone]").forEach((n) => n.remove());
+      delete el.dataset.marqueeReady;
+    },
+  };
 }
