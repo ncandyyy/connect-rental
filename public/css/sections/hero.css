@@ -88,10 +88,9 @@
 
 .hero__orbit circle {
   fill: none;
-  stroke: var(--green-700);
-  stroke-width: 1.8;
-  stroke-dasharray: 6 4;
-  opacity: 0.7;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-dasharray: 5 5;
 }
 
 @keyframes orbit {
@@ -117,16 +116,39 @@
 
 .hero__label {
   z-index: 3;
+  /* 궤도(점선 원)의 중심을 기준으로 돕니다: 원 중심 = 무대 좌표 (430, 333) */
+  transform-origin: calc((430 - var(--x)) * var(--u)) calc((333 - var(--y)) * var(--u));
   animation: bob 4.5s var(--ease-in-out) var(--bob, 0s) infinite;
+}
+
+/* 등장: 궤도를 따라 --from 만큼 뒤에서 미끄러져 들어와 제자리에 멈춥니다.
+   라벨 글씨는 반대로 같은 만큼 돌려서 항상 똑바로 서 있습니다. */
+.js .hero__label[data-reveal="orbit"] {
+  --from: -42deg;
+  translate: none;
+  rotate: var(--from);
+  transition:
+    opacity 0.6s var(--ease-out) var(--delay, 0s),
+    rotate 1.5s var(--ease-out) var(--delay, 0s);
+}
+
+.js .hero__label[data-reveal="orbit"].is-in {
+  rotate: 0deg;
+}
+
+.js .hero__label[data-reveal="orbit"] .label-chip {
+  rotate: calc(var(--from) * -1);
+}
+
+.js .hero__label[data-reveal="orbit"].is-in .label-chip {
+  rotate: 0deg;
 }
 
 /* 마우스를 올리면 살짝 기울어지며 떠오릅니다 */
 .hero__label .label-chip {
   cursor: default;
   transition:
-    opacity 0.8s var(--ease-out) var(--delay, 0s),
-    translate 0.9s var(--ease-out) var(--delay, 0s),
-    scale 0.9s var(--ease-spring) var(--delay, 0s),
+    rotate 1.5s var(--ease-out) var(--delay, 0s),
     transform 0.5s var(--ease-spring),
     box-shadow 0.35s var(--ease-out);
 }

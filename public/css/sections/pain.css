@@ -2,49 +2,36 @@
    01-1 고민 — "손님은 오는데, 왜 리뷰는 안 쌓일까요?" (어두운 배경)
    ========================================================= */
 .pain {
-  background:
-    radial-gradient(60% 55% at 65% 35%, rgb(0 220 180 / 0.03), transparent 75%),
-    #0a1411;
+  background: var(--ink-900);
   color: var(--white);
 }
 
-/* 배경 빛줄기 (가운데 860px 칼럼 기준) */
-.pain__beam {
+/* 배경 빛 (피그마 원본: 프레임 기준 left -304.7, top -270.6, 1469.3 x 2203.9 / 투명도 20%)
+   이미지는 위쪽 1300px 만 잘라 두었습니다. 가운데 860px 칼럼 기준으로 놓입니다. */
+.pain__bg {
   position: absolute;
   left: 50%;
   top: 0;
-  width: calc(860 * var(--u));
-  height: calc(852 * var(--u));
+  width: calc(1469.3 * var(--u));
+  height: calc(1300 * var(--u));
   translate: -50% 0;
-  overflow: visible; /* 넓은 화면·긴 화면에서도 빛줄기/그늘이 칼럼 밖까지 자연스럽게 이어지도록 */
+  background: url("../../assets/images/pain-bg.webp") center top / 100% 100% no-repeat;
+  opacity: 0.2;
+  transform-origin: 62% 42%;
   pointer-events: none;
+  animation: pain-breathe 6s var(--ease-in-out) infinite alternate;
 }
 
-/* 빛줄기가 꼭짓점을 기준으로 좌우로 천천히 흔들리고, 밝기가 은은하게 숨쉽니다 */
-.pain__beam-ray {
-  transform-origin: 495px 372px;
-  animation:
-    beam-sway 9s var(--ease-in-out) infinite alternate,
-    beam-glow 4.5s var(--ease-in-out) infinite alternate;
-}
-
-@keyframes beam-sway {
+/* 빛이 은은하게 밝아졌다 어두워지며 아주 천천히 커집니다 */
+@keyframes pain-breathe {
   from {
-    transform: rotate(-3deg);
+    opacity: 0.16;
+    transform: scale(1);
   }
 
   to {
-    transform: rotate(4deg);
-  }
-}
-
-@keyframes beam-glow {
-  from {
-    opacity: 0.75;
-  }
-
-  to {
-    opacity: 1;
+    opacity: 0.27;
+    transform: scale(1.04);
   }
 }
 
@@ -55,53 +42,12 @@
   padding: max(56px, calc(139 * var(--u))) var(--gutter) max(64px, calc(164 * var(--u)));
 }
 
-/* 사이렌: 빨간 불빛이 깜빡이며 흔들립니다 */
+/* 사이렌: 피그마의 움직이는 이모지(GIF → WebP) + 은은한 붉은 빛 */
 .pain__siren {
   position: relative;
   width: max(44px, calc(64 * var(--u)));
   height: auto;
-  filter: drop-shadow(0 0 0 rgb(255 70 70 / 0));
-  transform-origin: 50% 90%;
-}
-
-.pain__siren.is-in {
-  animation:
-    siren-flash 1.6s var(--ease-in-out) 0.6s infinite,
-    siren-wobble 3.2s var(--ease-in-out) 0.6s infinite;
-}
-
-@keyframes siren-flash {
-  0%,
-  100% {
-    filter: drop-shadow(0 0 0 rgb(255 70 70 / 0));
-  }
-
-  45% {
-    filter: drop-shadow(0 0 calc(18 * var(--u) + 6px) rgb(255 70 70 / 0.75));
-  }
-}
-
-@keyframes siren-wobble {
-  0%,
-  100% {
-    transform: rotate(0);
-  }
-
-  10% {
-    transform: rotate(-8deg);
-  }
-
-  20% {
-    transform: rotate(6deg);
-  }
-
-  30% {
-    transform: rotate(-3deg);
-  }
-
-  40% {
-    transform: rotate(0);
-  }
+  filter: drop-shadow(0 0 calc(14 * var(--u) + 4px) rgb(255 70 70 / 0.35));
 }
 
 .pain__title {

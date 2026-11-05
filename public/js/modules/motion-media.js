@@ -10,6 +10,7 @@
  * </div>
  *
  * - 화면에 보일 때만 재생하고, 지나가거나 다른 탭으로 가면 멈춥니다 (배터리/데이터 절약)
+ * - 쌓인 카드 밑에 완전히 덮인 경우(.is-covered, stack-cards.js)에도 멈춥니다
  * - 영상이 실제로 재생되기 시작하면 첫 장면 이미지 위로 부드럽게 나타납니다
  * - 불러오지 못하면 첫 장면 이미지가 그대로 남습니다
  */
@@ -21,7 +22,8 @@ export function initMotionMedia(root = document) {
   const states = new Map(); // video → 화면에 보이는지
 
   const sync = (video) => {
-    const shouldPlay = states.get(video) && !document.hidden && !video.dataset.failed;
+    const covered = Boolean(video.closest(".is-covered"));
+    const shouldPlay = states.get(video) && !covered && !document.hidden && !video.dataset.failed;
     if (shouldPlay) {
       const p = video.play();
       if (p && p.catch) p.catch(() => {});
@@ -62,7 +64,9 @@ export function initMotionMedia(root = document) {
     player.observe(el);
   });
 
-  document.addEventListener("visibilitychange", () => states.forEach((_, video) => sync(video)));
+  const syncAll = () => states.forEach((_, video) => sync(video));
+  document.addEventListener("visibilitychange", syncAll);
+  document.addEventListener("stack:change", syncAll);
 }
 
 function load(video) {

@@ -6,6 +6,7 @@ import { initReveal } from "./modules/reveal.js";
 import { initMarquees } from "./modules/marquee.js";
 import { initMotionMedia } from "./modules/motion-media.js";
 import { initCountUp } from "./modules/count-up.js";
+import { initStackCards } from "./modules/stack-cards.js";
 import { initApplyForm } from "./modules/form.js";
 import { initFloatingCta } from "./modules/floating-cta.js";
 import { initViewCounter } from "./modules/view-counter.js";
@@ -17,6 +18,7 @@ function start() {
   initViewCounter();
   initMarquees();
   initMotionMedia();
+  initStackCards();
   initCountUp();
   initApplyForm();
   initFloatingCta();

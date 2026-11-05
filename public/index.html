@@ -86,7 +86,7 @@
         <p class="topbar__text" data-view-text>
           지금까지 <strong class="topbar__count"><span data-view-count>0</span>명</strong>의 사장님이 관심있게 봤어요
         </p>
-        <img class="topbar__fire" src="assets/icons/fire.svg" alt="" width="30" height="30" />
+        <img class="topbar__fire" src="assets/icons/emoji-fire.webp" alt="" width="30" height="30" />
       </div>
     </header>
 
@@ -104,82 +104,73 @@
           <!-- 피그마 y=490 기준 무대: --x / --y / --w 는 디자인 px -->
           <div class="hero__stage stage">
             <!-- 점선 궤도: 천천히 돌아갑니다 -->
-            <svg class="hero__orbit at" style="--x: 97; --y: 0; --w: 666" viewBox="0 0 666 666" aria-hidden="true" data-reveal="fade">
-              <circle cx="333" cy="333" r="332" />
+            <svg class="hero__orbit at" style="--x: 96; --y: -1; --w: 668" viewBox="0 0 668 668" aria-hidden="true" data-reveal="fade">
+              <defs>
+                <linearGradient id="orbit-stroke" x1="667" y1="1" x2="1" y2="667" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#8BECBB" />
+                  <stop offset="1" stop-color="#0F653F" />
+                </linearGradient>
+              </defs>
+              <circle cx="334" cy="334" r="333" stroke="url(#orbit-stroke)" />
             </svg>
 
             <img
               class="hero__device at"
-              style="--x: 347; --y: 126; --w: 367; --delay: 0.35s; --bob: -1.2s"
+              style="--x: 347.1; --y: 126; --w: 365.8; --delay: 0.35s; --bob: -1.2s"
               src="assets/images/devices/pos-tablet.webp"
-              width="367"
-              height="360"
+              width="544"
+              height="535"
               alt="포스 프로그램이 실행 중인 태블릿"
               data-reveal
             />
             <img
               class="hero__device at"
-              style="--x: 148; --y: 176; --w: 260; --delay: 0.5s; --bob: -2.6s"
+              style="--x: 148.8; --y: 176.1; --w: 259.1; --delay: 0.5s; --bob: -2.6s"
               src="assets/images/devices/connect.webp"
-              width="260"
-              height="414"
+              width="430"
+              height="684"
               alt="고객용 결제 단말기 네이버 커넥트"
               fetchpriority="high"
               data-reveal
             />
             <img
               class="hero__device at"
-              style="--x: 309; --y: 294; --w: 221; --delay: 0.65s; --bob: -0.4s"
+              style="--x: 340.9; --y: 310; --w: 180.3; --delay: 0.65s; --bob: -0.4s"
               src="assets/images/devices/card-terminal.webp"
-              width="221"
-              height="263"
+              width="361"
+              height="488"
               alt="영수증 프린터가 달린 카드 단말기"
               data-reveal
             />
 
+            <!-- 혜택 라벨: 점선 궤도를 따라 미끄러져 들어와 제자리에 멈춘 뒤 둥실둥실 (--from: 출발 각도) -->
             <ul class="hero__labels" aria-label="주요 혜택">
-              <li class="hero__label at" style="--x: 74; --y: 108; --bob: -0.6s">
-                <span class="label-chip" data-reveal="pop" style="--delay: 0.85s">포스 프로그램 무료</span>
+              <li class="hero__label at" style="--x: 74; --y: 108; --bob: -0.6s; --delay: 0.8s" data-reveal="orbit">
+                <span class="label-chip">포스 프로그램 무료</span>
               </li>
-              <li class="hero__label at" style="--x: 538; --y: 47; --bob: -2.1s">
-                <span class="label-chip" data-reveal="pop" style="--delay: 0.95s">폐업시 위약금 0원</span>
+              <li class="hero__label at" style="--x: 538; --y: 47; --bob: -2.1s; --delay: 0.95s" data-reveal="orbit">
+                <span class="label-chip">폐업시 위약금 0원</span>
               </li>
-              <li class="hero__label at" style="--x: 597; --y: 511; --bob: -3.4s">
-                <span class="label-chip" data-reveal="pop" style="--delay: 1.05s">월 이용료 0원</span>
+              <li class="hero__label at" style="--x: 597; --y: 511; --bob: -3.4s; --delay: 1.1s" data-reveal="orbit">
+                <span class="label-chip">월 이용료 0원</span>
               </li>
-              <li class="hero__label at" style="--x: 96; --y: 560; --bob: -1.5s">
-                <span class="label-chip" data-reveal="pop" style="--delay: 1.15s; --cw: 199">1년 후 내 소유 장비</span>
+              <li class="hero__label at" style="--x: 96; --y: 560; --bob: -1.5s; --delay: 1.25s" data-reveal="orbit">
+                <span class="label-chip" style="--cw: 199">1년 후 내 소유 장비</span>
               </li>
             </ul>
           </div>
 
-          <img class="hero__logo" src="assets/icons/logo-paydv-dark.svg" width="104" height="22" alt="PAYDV 페이앤밴" data-reveal="fade" />
+          <img class="hero__logo" src="assets/icons/logo-paydv-dark.svg" width="104" height="21" alt="PAYDV 페이앤밴" data-reveal="fade" />
         </div>
       </section>
 
       <!-- ===================== 01-1 고민 (어두운 배경) ===================== -->
       <section class="pain section" aria-labelledby="pain-title">
-        <!-- 배경 빛줄기: 사이렌에서 내려오는 서치라이트처럼 천천히 흔들립니다 -->
-        <svg class="pain__beam" viewBox="0 0 860 852" preserveAspectRatio="xMidYMin slice" aria-hidden="true">
-          <defs>
-            <linearGradient id="beam-fill" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0" stop-color="#3cff82" stop-opacity="0.05" />
-              <stop offset="0.3" stop-color="#3cff82" stop-opacity="0.16" />
-              <stop offset="1" stop-color="#14f078" stop-opacity="0.1" />
-            </linearGradient>
-            <filter id="beam-blur" x="-20%" y="-20%" width="140%" height="140%">
-              <feGaussianBlur stdDeviation="4" />
-            </filter>
-          </defs>
-          <!-- 오른쪽 아래 큰 원호 그늘 -->
-          <path d="M495 372Q690 300 860 296L2600 240V1300H600L545 852C500 700 488 520 495 372Z" fill="#000" opacity="0.14" />
-          <g class="pain__beam-ray">
-            <path d="M40 1150L140 852C230 640 380 440 495 372C488 520 500 700 545 852L600 1150Z" fill="url(#beam-fill)" filter="url(#beam-blur)" />
-          </g>
-        </svg>
+        <!-- 배경 빛 (피그마 원본 이미지, 투명도 20%): 사이렌 불빛처럼 은은하게 숨쉽니다 -->
+        <div class="pain__bg" aria-hidden="true"></div>
 
         <div class="container pain__inner">
-          <img class="pain__siren" src="assets/icons/emoji-siren.png" width="64" height="64" alt="" data-reveal="pop" />
+          <img class="pain__siren" src="assets/icons/emoji-siren.webp" width="64" height="64" alt="" data-reveal="pop" />
 
           <h2 class="pain__title" id="pain-title" data-reveal style="--delay: 0.1s">
             손님은 오는데,<br class="br-m" /> <span class="pain__hl">왜 리뷰는 안 쌓일까요?</span>
@@ -205,8 +196,8 @@
       <!-- ===================== 01-2 패키지 소개 (밝은 배경) ===================== -->
       <section class="package section" id="package" aria-labelledby="package-title">
         <!-- 위쪽 가운데 뾰족한 홈 (어두운 섹션에서 이어지는 말풍선 꼬리) -->
-        <svg class="package__notch" viewBox="0 0 60 30" aria-hidden="true">
-          <path d="M0 0C18 4 26 16 30 30C34 16 42 4 60 0Z" />
+        <svg class="package__notch" viewBox="0 0 72 36" aria-hidden="true">
+          <path d="M0 0C19.882 0 36 16.118 36 36C36 16.118 52.118 0 72 0Z" />
         </svg>
 
         <div class="container">
@@ -216,7 +207,8 @@
             <span class="text-green">손님을 모아주는 패키지</span>
           </h2>
 
-          <ol class="steps">
+          <!-- 단계 카드: 스크롤하면 화면 위쪽에 차례로 붙고, 다음 카드가 올라오면 앞 카드는 작아지며 뒤로 물러납니다 (js/modules/stack-cards.js) -->
+          <ol class="steps" data-stack>
             <!-- 1. 결제 화면: GIF → 영상(assets/videos/connect-pay.*) -->
             <li class="step" data-reveal>
               <div class="step__text">
@@ -277,8 +269,8 @@
               <div class="step__media step__media--tablet">
                 <img
                   src="assets/images/package/naver-booking.webp"
-                  width="387"
-                  height="219"
+                  width="489"
+                  height="277"
                   alt="포스 화면에 네이버 예약 알림이 뜬 모습"
                   loading="lazy"
                 />
@@ -353,30 +345,30 @@
           <div class="devices__stage stage">
             <img
               class="devices__img at"
-              style="--x: 332; --y: 47; --w: 367; --delay: 0.1s"
+              style="--x: 332.1; --y: 47; --w: 365.8; --delay: 0.1s"
               src="assets/images/devices/pos-tablet.webp"
-              width="367"
-              height="360"
+              width="544"
+              height="535"
               alt="포스 프로그램이 실행 중인 태블릿"
               loading="lazy"
               data-reveal
             />
             <img
               class="devices__img at"
-              style="--x: 133; --y: 97; --w: 260; --delay: 0.25s"
+              style="--x: 133.8; --y: 97.1; --w: 259.1; --delay: 0.25s"
               src="assets/images/devices/connect.webp"
-              width="260"
-              height="414"
+              width="430"
+              height="684"
               alt="네이버 커넥트"
               loading="lazy"
               data-reveal
             />
             <img
               class="devices__img at"
-              style="--x: 294; --y: 215; --w: 221; --delay: 0.4s"
+              style="--x: 325.9; --y: 231; --w: 180.3; --delay: 0.4s"
               src="assets/images/devices/card-terminal.webp"
-              width="221"
-              height="263"
+              width="361"
+              height="488"
               alt="카드 단말기"
               loading="lazy"
               data-reveal
