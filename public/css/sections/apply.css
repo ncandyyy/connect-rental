@@ -1,0 +1,234 @@
+/* =========================================================
+   5 혜택 비교 + 상담 신청 (어두운 배경)
+   ========================================================= */
+.apply {
+  /* 비교 카드 묶음(폭 645) 전용 단위: 좁은 화면에서는 양옆 여백 28px 를 남기고 꽉 채웁니다 */
+  --uc: min(1px, calc((100vw - 56px) / 645));
+  padding: max(48px, calc(117 * var(--u))) 0 max(96px, calc(117 * var(--u)));
+  background: var(--ink-900);
+}
+
+/* ---------- 기울어진 태그 2개 ---------- */
+.apply__tags {
+  position: relative;
+  height: max(64px, calc(100 * var(--u)));
+}
+
+.apply__tag {
+  position: absolute;
+  left: calc(var(--cx) * var(--u));
+  top: calc(var(--cy) * var(--u));
+  transform: translate(-50%, -50%) rotate(var(--r));
+}
+
+.js .apply__tags .tag {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.7s var(--ease-in-out) var(--delay, 0s);
+}
+
+.js .apply__tags.is-in .tag {
+  clip-path: inset(0 0 0 0);
+}
+
+/* 좁은 화면: 두 태그를 가운데에 겹쳐 붙입니다 (디자인과 같은 모양) */
+@media (max-width: 599px) {
+  .apply__tags {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    padding: 14px 0 6px;
+  }
+
+  .apply__tag {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: translateY(var(--my, 0px)) rotate(var(--r));
+  }
+
+  .apply__tag:nth-child(2) {
+    --my: -5px;
+    margin-left: -12px;
+  }
+}
+
+.apply__title {
+  margin-top: max(20px, calc(34 * var(--u)));
+  color: var(--white);
+}
+
+/* ---------- 비교 카드 ---------- */
+.compare {
+  position: relative;
+  width: calc(645 * var(--uc));
+  height: calc(741.4 * var(--uc));
+  margin: max(32px, calc(57 * var(--u))) auto 0;
+}
+
+.compare__card {
+  position: absolute;
+  top: calc(var(--y) * var(--uc));
+  left: calc(var(--x) * var(--uc));
+  width: calc(var(--w) * var(--uc));
+}
+
+.compare__card--other {
+  z-index: 1;
+}
+
+.compare__card--other > * {
+  opacity: 0.8;
+}
+
+.compare__card--paydv {
+  z-index: 2;
+  border-radius: calc(16 * var(--uc));
+  filter: drop-shadow(0 0 calc(30 * var(--uc)) rgb(232 243 255 / 0.85));
+}
+
+.compare__img {
+  width: 100%;
+  height: auto;
+  border-radius: calc(16 * var(--uc));
+}
+
+.compare__brand {
+  display: grid;
+  place-items: center;
+  height: calc(58.1 * var(--uc));
+  border-radius: calc(16 * var(--uc));
+  background: var(--white);
+}
+
+.compare__brand img {
+  width: calc(135 * var(--uc));
+  height: auto;
+}
+
+.compare__list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(16 * var(--uc));
+  padding: calc(20 * var(--uc)) 0;
+  border-radius: calc(16 * var(--uc));
+  background: var(--white);
+}
+
+.compare__card--other .compare__list {
+  gap: calc(15.86 * var(--uc));
+  padding: calc(19.8 * var(--uc)) 0;
+  background: var(--grey-200);
+  overflow: hidden;
+}
+
+.compare__item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 0 calc(36 * var(--uc));
+  font-weight: 600;
+  font-size: max(11.5px, calc(20 * var(--uc)));
+  line-height: 1.2;
+  color: var(--grey-600);
+  text-align: right;
+}
+
+.compare__card--other .compare__item {
+  padding: 0 calc(35.7 * var(--uc));
+  font-size: max(11.5px, calc(19.8 * var(--uc)));
+}
+
+.compare__item + .compare__item {
+  padding-top: calc(16 * var(--uc));
+  border-top: 1px solid var(--grey-100);
+}
+
+.compare__card--other .compare__item + .compare__item {
+  padding-top: calc(15.86 * var(--uc));
+  border-top-color: var(--grey-400);
+}
+
+.compare__check {
+  flex: none;
+  width: max(14px, calc(24 * var(--uc)));
+  height: max(14px, calc(24 * var(--uc)));
+  color: var(--grey-600);
+}
+
+.compare__card--paydv .compare__check {
+  color: var(--green-600);
+}
+
+/* 페이앤밴 체크 아이콘이 차례로 그려집니다 */
+.compare__check use {
+  stroke-dasharray: 80;
+  stroke-dashoffset: 0;
+}
+
+.js .compare__card--paydv:not(.is-in) .compare__check use {
+  stroke-dashoffset: 80;
+}
+
+.compare__card--paydv .compare__check use {
+  transition: stroke-dashoffset 0.9s var(--ease-out) calc(0.35s + var(--i, 0) * 0.12s);
+}
+
+/* ---------- 강조 띠 3개 (카드 밖으로 살짝 튀어나온 초록 띠) ----------
+   카드가 들어오면 스티커처럼 하나씩 '착' 붙습니다 */
+.compare__item--hot {
+  z-index: 1;
+  margin-inline: calc(-13.96 * var(--uc));
+  padding: calc(20 * var(--uc)) calc(38 * var(--uc));
+  border: 1px solid rgb(78 228 153 / 0.6);
+  border-radius: calc(8 * var(--uc));
+  background: rgb(5 214 134 / 0.9);
+  font-weight: 700;
+  font-size: max(13px, calc(24 * var(--uc)));
+  color: var(--white);
+  transform: rotate(var(--r, 0deg));
+  transition:
+    opacity 0.35s var(--ease-out) calc(0.9s + (var(--i) - 4) * 0.22s),
+    scale 0.5s var(--ease-spring) calc(0.9s + (var(--i) - 4) * 0.22s);
+}
+
+.compare__item--hot + .compare__item--hot {
+  z-index: 2;
+  margin-top: calc(-23 * var(--uc));
+  padding-top: calc(20 * var(--uc));
+  border-top: 1px solid rgb(78 228 153 / 0.6);
+}
+
+.compare__item--hot:last-child {
+  z-index: 3;
+  margin-bottom: calc(1 * var(--uc));
+}
+
+.compare__card--paydv .compare__item--hot .compare__check {
+  color: var(--white);
+}
+
+.js .compare__card--paydv:not(.is-in) .compare__item--hot {
+  opacity: 0;
+  scale: 1.18;
+}
+
+@media (max-width: 599px) {
+  .compare__item,
+  .compare__card--other .compare__item {
+    gap: 4px;
+    padding-inline: calc(22 * var(--uc));
+    letter-spacing: -0.02em;
+  }
+
+  .compare__item--hot {
+    padding-inline: calc(30 * var(--uc));
+  }
+}
+
+/* ---------- 신청 폼 ---------- */
+.apply .apply-form {
+  margin-top: max(36px, calc(57 * var(--u)));
+}

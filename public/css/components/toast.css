@@ -1,0 +1,28 @@
+/* =========================================================
+   토스트 — 화면 아래에 잠깐 떴다 사라지는 안내 메시지
+   ========================================================= */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom));
+  z-index: 60;
+  max-width: calc(100% - 32px);
+  padding: 14px 20px;
+  border-radius: 14px;
+  background: rgb(13 22 17 / 0.92);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.4;
+  translate: -50% 20px;
+  opacity: 0;
+  transition:
+    opacity 0.3s,
+    translate 0.4s var(--ease-out);
+  pointer-events: none;
+}
+
+.toast.is-show {
+  opacity: 1;
+  translate: -50% 0;
+}

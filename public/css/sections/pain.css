@@ -1,0 +1,206 @@
+/* =========================================================
+   01-1 고민 — "손님은 오는데, 왜 리뷰는 안 쌓일까요?" (어두운 배경)
+   ========================================================= */
+.pain {
+  background:
+    radial-gradient(60% 55% at 65% 35%, rgb(0 220 180 / 0.03), transparent 75%),
+    #0a1411;
+  color: var(--white);
+}
+
+/* 배경 빛줄기 (가운데 860px 칼럼 기준) */
+.pain__beam {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: calc(860 * var(--u));
+  height: calc(852 * var(--u));
+  translate: -50% 0;
+  overflow: visible; /* 넓은 화면·긴 화면에서도 빛줄기/그늘이 칼럼 밖까지 자연스럽게 이어지도록 */
+  pointer-events: none;
+}
+
+/* 빛줄기가 꼭짓점을 기준으로 좌우로 천천히 흔들리고, 밝기가 은은하게 숨쉽니다 */
+.pain__beam-ray {
+  transform-origin: 495px 372px;
+  animation:
+    beam-sway 9s var(--ease-in-out) infinite alternate,
+    beam-glow 4.5s var(--ease-in-out) infinite alternate;
+}
+
+@keyframes beam-sway {
+  from {
+    transform: rotate(-3deg);
+  }
+
+  to {
+    transform: rotate(4deg);
+  }
+}
+
+@keyframes beam-glow {
+  from {
+    opacity: 0.75;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.pain__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: max(56px, calc(139 * var(--u))) var(--gutter) max(64px, calc(164 * var(--u)));
+}
+
+/* 사이렌: 빨간 불빛이 깜빡이며 흔들립니다 */
+.pain__siren {
+  position: relative;
+  width: max(44px, calc(64 * var(--u)));
+  height: auto;
+  filter: drop-shadow(0 0 0 rgb(255 70 70 / 0));
+  transform-origin: 50% 90%;
+}
+
+.pain__siren.is-in {
+  animation:
+    siren-flash 1.6s var(--ease-in-out) 0.6s infinite,
+    siren-wobble 3.2s var(--ease-in-out) 0.6s infinite;
+}
+
+@keyframes siren-flash {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 0 rgb(255 70 70 / 0));
+  }
+
+  45% {
+    filter: drop-shadow(0 0 calc(18 * var(--u) + 6px) rgb(255 70 70 / 0.75));
+  }
+}
+
+@keyframes siren-wobble {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  10% {
+    transform: rotate(-8deg);
+  }
+
+  20% {
+    transform: rotate(6deg);
+  }
+
+  30% {
+    transform: rotate(-3deg);
+  }
+
+  40% {
+    transform: rotate(0);
+  }
+}
+
+.pain__title {
+  margin-top: max(20px, calc(52 * var(--u)));
+  font-weight: 800;
+  font-size: max(24px, calc(40 * var(--u)));
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--paper-100);
+}
+
+/* 형광 박스가 왼쪽부터 칠해집니다 */
+.pain__hl {
+  padding: 0 0.06em;
+  background: linear-gradient(var(--green-600), var(--green-600)) no-repeat 0 0 / 0% 100%;
+  transition: background-size 0.7s var(--ease-in-out) 0.6s;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+.pain__title.is-in .pain__hl {
+  background-size: 100% 100%;
+}
+
+/* ---------- 고민 말풍선 3개 ---------- */
+.pain__quotes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: max(14px, calc(23 * var(--u)));
+  margin-top: max(36px, calc(102 * var(--u)));
+}
+
+.quote {
+  display: flex;
+  align-items: center;
+  gap: max(10px, calc(17 * var(--u)));
+  padding: max(13px, calc(24 * var(--u) - 1px)); /* 테두리 1px 포함해서 피그마 높이(79)와 맞춤 */
+  border: 1px solid rgb(255 255 255 / 0.95);
+  background: rgb(13 22 17 / 0.25);
+}
+
+.quote__mark {
+  flex: none;
+  width: max(20px, calc(34 * var(--u)));
+  height: auto;
+}
+
+/* 말풍선이 들어온 뒤 따옴표가 '톡' 하고 커졌다 돌아옵니다 */
+.quote.is-in .quote__mark {
+  animation: mark-pop 0.6s var(--ease-spring) calc(var(--delay, 0s) + 0.35s) both;
+}
+
+@keyframes mark-pop {
+  0% {
+    scale: 0.4;
+    opacity: 0;
+  }
+
+  100% {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+.quote__text {
+  font-weight: 700;
+  font-size: max(15px, calc(24 * var(--u)));
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* 밑줄은 말풍선이 나타난 뒤 왼쪽부터 그어집니다 */
+.quote__text u {
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0% max(1px, 0.07em);
+  padding-bottom: 0.08em;
+  transition: background-size 0.6s var(--ease-out);
+  transition-delay: calc(var(--delay, 0s) + 0.55s);
+}
+
+.quote.is-in .quote__text u {
+  background-size: 100% max(1px, 0.07em);
+}
+
+/* 좁은 화면: 말풍선 글이 길면 줄을 바꿉니다 */
+@media (max-width: 599px) {
+  .pain__quotes {
+    align-self: stretch;
+  }
+
+  .quote {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .quote__text {
+    white-space: normal;
+    line-height: 1.4;
+  }
+}

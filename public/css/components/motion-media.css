@@ -1,0 +1,28 @@
+/* =========================================================
+   움직이는 화면 (GIF 를 영상으로 바꾼 것)
+   첫 장면 이미지(img)가 먼저 보이고, 영상이 실제로 재생되기 시작하면 그 위로 부드럽게 나타납니다.
+   동작: js/modules/motion-media.js
+   ========================================================= */
+.motion-media {
+  position: relative;
+  overflow: hidden;
+}
+
+.motion-media img,
+.motion-media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.motion-media video {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.motion-media video.is-playing {
+  opacity: 1;
+}

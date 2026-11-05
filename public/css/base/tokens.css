@@ -1,0 +1,67 @@
+/* =========================================================
+   Design tokens
+   - 피그마 원본은 폭 860px 기준입니다.
+   - --u 는 "디자인 1px" 입니다. 화면이 860px보다 좁으면 비율대로 줄어듭니다.
+     예) width: calc(245 * var(--u))  →  860px 화면에서 245px, 430px 화면에서 122.5px
+   - 글자는 너무 작아지지 않도록 max(최소px, calc(디자인값 * var(--u))) 형태로 씁니다.
+   ========================================================= */
+:root {
+  /* layout */
+  --design-w: 860;
+  --u: min(1px, calc(100vw / 860));
+  --container: 860px;
+  --gutter: 16px;
+
+  /* color — 초록 (네이버 커넥트 테마) */
+  --green-800: #037046;
+  --green-700: #109b61;
+  --green-600: #0fb873;
+  --green-500: #05d686;
+  --green-400: #4ee499;
+  --green-200: #b0f6cc;
+  --green-100: #d5fbe3;
+  --green-50: #ebfef2;
+  --mint-50: #dff6e8;
+
+  /* color — 어두운 배경 / 글자 */
+  --ink-900: #0d1611;
+  --ink-850: #1e1e1e;
+  --ink-700: #3f4a44;
+  --ink-500: #73817a;
+  --ink-disabled: rgb(178 190 185 / 0.5);
+  --paper-100: #f2f5f4;
+  --paper-50: #fafbfb;
+
+  /* color — grey */
+  --grey-800: #333d4b;
+  --grey-700: #4e5968;
+  --grey-600: #6b7684;
+  --grey-500: #848f9c;
+  --grey-400: #b0b8c1;
+  --grey-300: #d1d6db;
+  --grey-250: #e1e4e7;
+  --grey-200: #e5e8eb;
+  --grey-150: #ececec;
+  --grey-100: #f2f4f6;
+  --grey-50: #fafafb;
+  --white: #fff;
+
+  /* color — 폼 */
+  --form-ink: #0d1611;
+  --form-sub: #73817a;
+  --danger: #f04452;
+
+  /* type */
+  --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* misc */
+  --topbar-h: max(52px, calc(98 * var(--u)));
+  --z-topbar: 50;
+  --z-cta: 40;
+}
