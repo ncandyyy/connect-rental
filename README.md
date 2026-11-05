@@ -74,7 +74,7 @@ npx serve public
 
 ## 오픈 전 체크리스트
 
-- [ ] 토스 렌탈 시트의 Apps Script 를 이 저장소 `apps-script/Code.gs` 로 바꾸고 **새 버전으로 배포**한 뒤, 같은 웹 앱 주소를 `public/js/config.js` 의 `FORM_ENDPOINT` 에 넣기 → [docs/form-setup.md](docs/form-setup.md)
+- [x] 토스 렌탈 시트의 Apps Script 를 이 저장소 `apps-script/Code.gs` 로 바꾸고 **새 버전으로 배포**한 뒤, 같은 웹 앱 주소를 `public/js/config.js` 의 `FORM_ENDPOINT` 에 넣기 → [docs/form-setup.md](docs/form-setup.md)
       (한 시트에서 토스 렌탈은 `신청목록`, 네이버 커넥트는 `커넥트 신청목록` 탭으로 나뉘고 조회수도 따로 셉니다. 비워두면 테스트 모드: 신청은 전송 안 되고 상단 바는 "많은 사장님이 관심있게 보고 있어요")
 - [ ] 넷리파이 주소(또는 도메인)가 정해지면 `index.html` 의 canonical · og:url · og:image 주소 변경 (지금은 `connect-rental.netlify.app` 으로 가정)
 - [ ] 개인정보 수집·이용 동의 문구 확인 (`index.html` 의 `consent-detail`)

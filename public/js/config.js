@@ -8,7 +8,7 @@ export const CONFIG = {
    * 설정 방법: docs/form-setup.md  (먼저 Apps Script 코드를 새 버전으로 바꾼 뒤에 주소를 넣어주세요)
    * 비워두면 "테스트 모드"로 동작합니다 (화면 흐름만 확인, 실제 전송 안 됨).
    */
-  FORM_ENDPOINT: "",
+  FORM_ENDPOINT: "https://script.google.com/macros/s/AKfycbwNtV2k8VgZqCxJ-uj7SxF0V_XyBKWrPEUNocFY6NQvfqbyBxF3R1pZ1aJ93N39L-S5/exec",
 
   /** 이 페이지 이름표. 시트 탭·누적 조회수를 페이지별로 나눌 때 씁니다. (apps-script/Code.gs 의 PAGES 와 같은 값) */
   PAGE_ID: "connect",
