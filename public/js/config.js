@@ -4,11 +4,14 @@
 export const CONFIG = {
   /**
    * 신청서를 받을 Google Apps Script 웹 앱 주소 (https://script.google.com/macros/s/.../exec)
-   * 설정 방법: docs/form-setup.md
+   * 토스 렌탈과 같은 시트·같은 주소를 씁니다. 신청은 PAGE_ID 로 구분돼 '커넥트 신청목록' 탭에 따로 쌓입니다.
+   * 설정 방법: docs/form-setup.md  (먼저 Apps Script 코드를 새 버전으로 바꾼 뒤에 주소를 넣어주세요)
    * 비워두면 "테스트 모드"로 동작합니다 (화면 흐름만 확인, 실제 전송 안 됨).
-   * ※ 토스 렌탈 페이지와 신청이 섞이지 않도록, 이 페이지 전용 시트/Apps Script 를 새로 만들어 넣어주세요.
    */
   FORM_ENDPOINT: "",
+
+  /** 이 페이지 이름표. 시트 탭·누적 조회수를 페이지별로 나눌 때 씁니다. (apps-script/Code.gs 의 PAGES 와 같은 값) */
+  PAGE_ID: "connect",
 
   /** 업종 선택 목록 */
   BUSINESS_TYPES: [
