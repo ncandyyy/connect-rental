@@ -2,6 +2,8 @@
    00 히어로 — "결제하면 리뷰까지 / 시작은 0원으로 가볍게"
    ========================================================= */
 .hero {
+  /* 점선 원과 혜택 라벨이 한 바퀴 도는 시간 (클수록 느림) */
+  --orbit-time: 90s;
   background: linear-gradient(180deg, var(--mint-50) 0%, #fbfbfb 100%);
 }
 
@@ -83,7 +85,7 @@
 .hero__orbit {
   height: auto;
   overflow: visible;
-  animation: orbit 80s linear infinite;
+  animation: orbit var(--orbit-time) linear infinite;
 }
 
 .hero__orbit circle {
@@ -96,6 +98,12 @@
 @keyframes orbit {
   to {
     rotate: 360deg;
+  }
+}
+
+@keyframes orbit-counter {
+  to {
+    rotate: -360deg;
   }
 }
 
@@ -114,43 +122,40 @@
   inset: 0;
 }
 
+/* 라벨 묶음 자체는 숨기지 않고(무대 기준으로 화면에 들어왔는지만 판단), 안의 라벨이 차례로 톡 나타납니다 */
+.js .hero__labels[data-reveal="group"] {
+  opacity: 1;
+  translate: none;
+  transition: none;
+}
+
+/* 라벨: 점선 원의 중심(무대 좌표 430, 333)을 기준으로 천천히 공전합니다.
+   안쪽 글씨(.label-chip)는 같은 속도로 반대로 돌아서 항상 똑바로 서 있습니다. */
 .hero__label {
   z-index: 3;
-  /* 궤도(점선 원)의 중심을 기준으로 돕니다: 원 중심 = 무대 좌표 (430, 333) */
   transform-origin: calc((430 - var(--x)) * var(--u)) calc((333 - var(--y)) * var(--u));
-  animation: bob 4.5s var(--ease-in-out) var(--bob, 0s) infinite;
+  animation: orbit var(--orbit-time) linear infinite;
 }
 
-/* 등장: 궤도를 따라 --from 만큼 뒤에서 미끄러져 들어와 제자리에 멈춥니다.
-   라벨 글씨는 반대로 같은 만큼 돌려서 항상 똑바로 서 있습니다. */
-.js .hero__label[data-reveal="orbit"] {
-  --from: -42deg;
-  translate: none;
-  rotate: var(--from);
-  transition:
-    opacity 0.6s var(--ease-out) var(--delay, 0s),
-    rotate 1.5s var(--ease-out) var(--delay, 0s);
-}
-
-.js .hero__label[data-reveal="orbit"].is-in {
-  rotate: 0deg;
-}
-
-.js .hero__label[data-reveal="orbit"] .label-chip {
-  rotate: calc(var(--from) * -1);
-}
-
-.js .hero__label[data-reveal="orbit"].is-in .label-chip {
-  rotate: 0deg;
-}
-
-/* 마우스를 올리면 살짝 기울어지며 떠오릅니다 */
 .hero__label .label-chip {
   cursor: default;
+  animation: orbit-counter var(--orbit-time) linear infinite;
   transition:
-    rotate 1.5s var(--ease-out) var(--delay, 0s),
+    opacity 0.6s var(--ease-out) var(--delay, 0s),
+    scale 0.7s var(--ease-spring) var(--delay, 0s),
     transform 0.5s var(--ease-spring),
     box-shadow 0.35s var(--ease-out);
+}
+
+.js .hero__labels:not(.is-in) .label-chip {
+  opacity: 0;
+  scale: 0.6;
+}
+
+/* 라벨에 마우스를 올리면 모든 라벨이 잠깐 멈춥니다 (같이 멈춰야 간격이 유지됨) */
+.hero__labels:has(.hero__label:hover) .hero__label,
+.hero__labels:has(.hero__label:hover) .label-chip {
+  animation-play-state: paused;
 }
 
 .hero__label:hover {
@@ -160,6 +165,14 @@
 .hero__label:hover .label-chip {
   transform: translateY(calc(-12 * var(--u) - 3px)) rotate(-3deg);
   box-shadow: 0 14px 30px rgb(16 155 97 / 0.25);
+}
+
+/* 좁은 화면: 라벨이 원을 따라 화면 양끝을 지날 때 잘리지 않도록 무대만 조금 작게 (기준 단위 --u 의 92%) */
+@media (max-width: 599px) {
+  .hero__stage {
+    --u: calc(min(1px, 100vw / 860) * 0.92);
+    width: calc(860 * var(--u));
+  }
 }
 
 .hero__logo {

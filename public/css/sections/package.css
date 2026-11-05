@@ -161,12 +161,20 @@
     padding: 24px 20px 0;
   }
 
+  /* 휴대폰에서는 글을 가운데 정렬 (데스크톱은 왼쪽 정렬 그대로) */
   .step__text {
     gap: 12px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .step__copy {
+    align-items: center;
   }
 
   .step__desc {
     line-height: 1.4;
+    text-wrap: balance;
   }
 
   /* 화면 높이에 맞춰 최대한 크게 (카드 한 장이 화면 안에 다 들어오도록) */

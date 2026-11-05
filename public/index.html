@@ -143,19 +143,20 @@
               data-reveal
             />
 
-            <!-- 혜택 라벨: 점선 궤도를 따라 미끄러져 들어와 제자리에 멈춘 뒤 둥실둥실 (--from: 출발 각도) -->
-            <ul class="hero__labels" aria-label="주요 혜택">
-              <li class="hero__label at" style="--x: 74; --y: 108; --bob: -0.6s; --delay: 0.8s" data-reveal="orbit">
-                <span class="label-chip">포스 프로그램 무료</span>
+            <!-- 혜택 라벨: 점선 원을 따라 아주 천천히 돕니다. 글씨는 항상 똑바로, 기기 사진보다 위에 있습니다.
+                 (도는 속도: css/sections/hero.css 의 --orbit-time) 무대가 화면에 들어오면 하나씩 톡 나타납니다. -->
+            <ul class="hero__labels" aria-label="주요 혜택" data-reveal="group">
+              <li class="hero__label at" style="--x: 74; --y: 108">
+                <span class="label-chip" style="--delay: 0.8s">포스 프로그램 무료</span>
               </li>
-              <li class="hero__label at" style="--x: 538; --y: 47; --bob: -2.1s; --delay: 0.95s" data-reveal="orbit">
-                <span class="label-chip">폐업시 위약금 0원</span>
+              <li class="hero__label at" style="--x: 538; --y: 47">
+                <span class="label-chip" style="--delay: 0.95s">폐업시 위약금 0원</span>
               </li>
-              <li class="hero__label at" style="--x: 597; --y: 511; --bob: -3.4s; --delay: 1.1s" data-reveal="orbit">
-                <span class="label-chip">월 이용료 0원</span>
+              <li class="hero__label at" style="--x: 597; --y: 511">
+                <span class="label-chip" style="--delay: 1.1s">월 이용료 0원</span>
               </li>
-              <li class="hero__label at" style="--x: 96; --y: 560; --bob: -1.5s; --delay: 1.25s" data-reveal="orbit">
-                <span class="label-chip" style="--cw: 199">1년 후 내 소유 장비</span>
+              <li class="hero__label at" style="--x: 96; --y: 560">
+                <span class="label-chip" style="--delay: 1.25s; --cw: 199">1년 후 내 소유 장비</span>
               </li>
             </ul>
           </div>
@@ -239,7 +240,7 @@
                 <p class="step__label"><span class="step__num">2</span>직접 선택해요</p>
                 <div class="step__copy">
                   <h3 class="step__title">자동으로 혜택 제공</h3>
-                  <p class="step__desc">결제 데이터로 고객 취향을 파악해<br class="br-d" /> 쿠폰·적립·맞춤 혜택을 자동으로 제공합니다</p>
+                  <p class="step__desc">결제 데이터로 고객 취향을 파악해<br class="br-d" /> <span class="nowrap">쿠폰·적립·맞춤</span> 혜택을 자동으로 제공합니다</p>
                 </div>
               </div>
               <div class="step__media step__media--phone motion-media" data-motion>
@@ -262,7 +263,7 @@
               <div class="step__text">
                 <p class="step__label"><span class="step__num">3</span>손님이 찾아와요</p>
                 <div class="step__copy">
-                  <h3 class="step__title">네이버 주문,예약 연동</h3>
+                  <h3 class="step__title">네이버 주문, 예약 연동</h3>
                   <p class="step__desc">플레이스에 올라간 리뷰를 보고<br /> 네이버 지도로 예약하고 찾아와요</p>
                 </div>
               </div>
@@ -313,7 +314,7 @@
               <li class="review-card">
                 <p class="review-card__rating"><span class="review-card__stars" aria-label="별점 5점">★★★★★</span>5.0</p>
                 <p class="review-card__meta">스마트 스토어 주문 | deal****</p>
-                <p class="review-card__body">문의 피드백도 정말 빠르고 아주 친절하게<br />응대해주셔서 시작부터 기분이 좋았습니다.<br />고객님들의 네이버 리뉴 등록률이 눈에 띄게 올라갔어요!</p>
+                <p class="review-card__body">문의 피드백도 정말 빠르고 아주 친절하게<br />응대해주셔서 시작부터 기분이 좋았습니다.<br />고객님들의 네이버 리뷰 등록률이 눈에 띄게 올라갔어요!</p>
               </li>
               <li class="review-card">
                 <p class="review-card__rating"><span class="review-card__stars" aria-label="별점 5점">★★★★★</span>5.0</p>
@@ -334,7 +335,7 @@
       <section class="devices section" id="devices" aria-labelledby="devices-title">
         <div class="container">
           <h2 class="section-title devices__title" id="devices-title" data-reveal>
-            <span>게다가 페이앤밴 에서는</span>
+            <span>게다가 페이앤밴에서는</span>
             <span class="text-grad-green">비용 걱정 없이 모두 들고 가세요!</span>
           </h2>
 
