@@ -615,5 +615,19 @@
     </div>
 
     <div class="toast" role="status" aria-live="polite" data-toast></div>
+
+    <!-- NAVER 광고 전환추적: 공통 스크립트 (모든 방문의 유입 경로 기록)
+         신청완료(lead) 전환은 페이지를 열 때가 아니라 신청이 실제로 접수됐을 때
+         js/modules/analytics.js 가 보냅니다. 계정 ID(wa)는 여기 한 곳만 바꾸면 됩니다. -->
+    <script type="text/javascript" src="https://wcs.naver.net/wcslog.js"></script>
+    <script type="text/javascript">
+      if (!window.wcs_add) window.wcs_add = {};
+      wcs_add["wa"] = "s_49d50ef78fff";
+      if (!window._nasa) window._nasa = {};
+      if (window.wcs) {
+        wcs.inflow();
+        wcs_do();
+      }
+    </script>
   </body>
 </html>

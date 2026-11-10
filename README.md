@@ -81,4 +81,5 @@ npx serve public
 - [ ] 개인정보 수집·이용 동의 문구 확인 (`index.html` 의 `consent-detail`)
 - [ ] 이용약관 / 개인정보처리방침 / 이메일무단수집거부 링크 주소 넣기 (`index.html` 푸터 TODO, 지금은 "준비 중" 안내)
 - [ ] 광고 링크에 UTM 붙이기 (예: `?utm_source=daangn&utm_campaign=connect`) → 시트에 유입 경로가 같이 기록됨
+- [x] 네이버 광고 전환추적 (계정 `s_49d50ef78fff`): 공통 스크립트는 `index.html` 맨 아래, 신청완료(lead) 전환은 신청이 실제로 접수됐을 때 `js/modules/analytics.js` 가 보냄
 - [ ] (선택) GA4 / GTM / 메타 픽셀 설치 시 `form_start`, `form_step`, `lead_submit`, `cta_click` 이벤트가 자동 전송됨
