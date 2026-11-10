@@ -10,6 +10,7 @@ import { initCountUp } from "./modules/count-up.js";
 import { initStackCards } from "./modules/stack-cards.js";
 import { initApplyForm } from "./modules/form.js";
 import { initFloatingCta } from "./modules/floating-cta.js";
+import { initApplySheet } from "./modules/apply-sheet.js";
 import { initViewCounter } from "./modules/view-counter.js";
 import { captureAttribution } from "./modules/attribution.js";
 import { toast } from "./modules/toast.js";
@@ -24,6 +25,7 @@ function start() {
   initCountUp();
   initApplyForm();
   initFloatingCta();
+  initApplySheet();
   initReveal();
 
   // 아직 준비되지 않은 링크 (약관 등)

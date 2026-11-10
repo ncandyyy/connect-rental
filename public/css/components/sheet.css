@@ -1,0 +1,167 @@
+/* =========================================================
+   신청 창 — 하단 고정 버튼을 누르면 열립니다 (js/modules/apply-sheet.js)
+   휴대폰(600px 미만): 아래에서 올라오는 창, 손잡이를 아래로 끌면 닫힘
+   데스크톱: 화면 가운데 창
+   ========================================================= */
+.sheet {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-sheet);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(13 22 17 / 0.55);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease-out);
+}
+
+.sheet.is-open .sheet__backdrop {
+  opacity: 1;
+}
+
+.sheet__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-height: 92vh;
+  max-height: 92dvh;
+  padding-bottom: env(safe-area-inset-bottom);
+  border-radius: 24px 24px 0 0;
+  background: var(--white);
+  box-shadow: 0 -12px 40px rgb(13 22 17 / 0.18);
+  outline: none;
+  translate: 0 100%;
+  transition: translate 0.45s var(--ease-out);
+}
+
+.sheet.is-open .sheet__panel {
+  translate: 0 var(--drag, 0px);
+}
+
+/* 손으로 끄는 동안에는 손가락을 바로 따라오게 */
+.sheet.is-dragging .sheet__panel {
+  transition: none;
+}
+
+/* 손잡이 + 닫기 버튼 */
+.sheet__head {
+  position: relative;
+  flex: none;
+  display: grid;
+  place-items: center;
+  height: 40px;
+  touch-action: none;
+  cursor: grab;
+}
+
+.sheet__grip {
+  width: 40px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--grey-300);
+}
+
+.sheet__close {
+  position: absolute;
+  top: 6px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  color: var(--grey-600);
+  transition: background-color 0.2s;
+}
+
+.sheet__close:hover {
+  background: var(--grey-100);
+}
+
+.sheet__close svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+/* 창 안은 따로 스크롤 (뒤 페이지는 고정) */
+.sheet__body {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* 창 안에 들어온 신청 폼: 카드 모양 대신 창에 꽉 차게 */
+.sheet__body .apply-form {
+  width: 100%;
+  margin: 0;
+  padding: 0 20px 24px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* 창이 열려 있는 동안 뒤 페이지 스크롤 막기 (스크롤바 폭만큼 밀림 방지) */
+html.is-sheet-open,
+html.is-sheet-open body {
+  overflow: hidden;
+}
+
+html.is-sheet-open body {
+  padding-right: var(--scrollbar, 0px);
+}
+
+/* ---------- 데스크톱: 가운데 창 ---------- */
+@media (min-width: 600px) {
+  .sheet {
+    align-items: center;
+    padding: 24px;
+  }
+
+  .sheet__panel {
+    width: min(640px, 100%);
+    max-height: min(88vh, 880px);
+    border-radius: 24px;
+    box-shadow: 0 24px 60px rgb(13 22 17 / 0.25);
+    translate: none;
+    opacity: 0;
+    scale: 0.96;
+    transition:
+      opacity 0.3s var(--ease-out),
+      scale 0.4s var(--ease-out);
+  }
+
+  .sheet.is-open .sheet__panel {
+    translate: none;
+    opacity: 1;
+    scale: 1;
+  }
+
+  .sheet__head {
+    height: 52px;
+    cursor: default;
+  }
+
+  .sheet__grip {
+    display: none;
+  }
+
+  .sheet__close {
+    top: 12px;
+    right: 14px;
+  }
+
+  .sheet__body .apply-form {
+    padding: 0 32px 32px;
+  }
+}
